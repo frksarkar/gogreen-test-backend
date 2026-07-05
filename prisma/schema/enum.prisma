@@ -1,0 +1,159 @@
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum VendorStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SUSPENDED
+}
+
+enum PayoutStatus {
+  PENDING
+  PROCESSED
+  COMPLETED
+  FAILED
+}
+
+enum RoleType {
+  SYSTEM
+  CUSTOM
+  VENDOR
+  CUSTOMER
+  STAFF
+}
+
+enum ProductStatus {
+  IN_STOCK
+  OUT_OF_STOCK
+}
+
+enum AttributeType {
+  SELECT
+  INPUT
+}
+
+enum AssignmentType {
+  VARIANT
+  MAIN_VARIANT
+  ATTRIBUTE
+}
+
+enum DiscountType {
+  PERCENT
+  FIXED
+}
+
+enum ImplementAttributeType {
+  SELECT
+  INPUT
+  CUSTOM
+}
+
+enum AttributePropertyType {
+  VARIANT
+  MAIN_VARIANT
+  ATTRIBUTE
+}
+
+enum StoreStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+  SUSPENDED
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum TicketPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum DocumentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum AddressType {
+  HOME
+  OFFICE
+  OTHER
+  OLD
+}
+
+enum StaticPage {
+  ABOUT_US
+  CONTACT_US
+  FAQ
+  PRIVACY_POLICY
+  TERMS_AND_CONDITION
+  RETURN_POLICY
+}
+
+enum BannerPosition {
+  FOOTER
+  SIDEBAR
+  HERO
+}
+
+enum CartWishlistENUM {
+  CART
+  WISHLIST
+}
+
+enum OrderStatus {
+  PENDING
+  PLACED
+  // SELLER_APPROVED
+  PROCESSING
+  PACKED
+  HANDED_TO_COURIER
+  REACHED_DISTRIBUTION_CENTER
+  DEPARTED_FROM_DISTRIBUTION_CENTER
+  HANDED_TO_RIDER
+  DELIVERY_ATTEMPT
+  DELIVERED
+  CANCELLED
+  FAILED_DELIVERY
+  RETURNED
+  REFUNDED
+}
+
+enum PaymentProvider {
+  COD
+  NAGAD
+  BKASH
+  SSLCOMMERZ
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+  CANCELLED
+  PROCESSING
+}
+
+enum BannerType {
+  Vertical
+  Horizontal
+}
+
+enum BannerAdsType {
+  Approved
+  Pending
+  Declined
+}

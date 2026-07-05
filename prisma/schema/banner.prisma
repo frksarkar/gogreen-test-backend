@@ -1,0 +1,33 @@
+model ClientBanner {
+    id         String    @id @default(uuid())
+    image      String
+    alt        String?
+    positionId String
+    isPaid     Boolean   @default(false)
+    status   BannerAdsType   @default(Pending)
+    isDeleted  Boolean   @default(false)
+    deletedAt  DateTime?
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+
+    position ClientBannerPosition @relation("BannerToPosition", fields: [positionId], references: [id])
+
+  @@index([positionId])
+  @@map("client_banners")
+}
+
+model ClientBannerPosition {
+    id        String     @id @default(uuid())
+    position  String     @unique
+    page      String
+    price     Float
+    type      BannerType
+    isDeleted Boolean    @default(false)
+    deletedAt DateTime?
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+
+  clientBanners ClientBanner[] @relation("BannerToPosition")
+
+    @@map("client_banner_positions")
+}

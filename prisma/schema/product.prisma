@@ -1,0 +1,298 @@
+model ProductCategory {
+  id                 String             @id @default(uuid())
+  name               String             @unique
+  slug               String             @unique
+  description        String?
+  image              String?
+  parentId           String?
+  isDeleted          Boolean            @default(false)
+  deletedAt          DateTime?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  categoryProperties CategoryProperty[]
+  products           Product[]
+  parent             ProductCategory?   @relation("CategoryToParent", fields: [parentId], references: [id], onDelete: Restrict)
+  children           ProductCategory[]  @relation("CategoryToParent")
+
+  @@index([parentId])
+}
+
+model Attribute {
+  id                          String                       @id @default(uuid())
+  name                        String
+  type                        AttributeType
+  propertyType                AttributePropertyType
+  isDeleted                   Boolean                      @default(false)
+  deletedAt                   DateTime?
+  createdAt                   DateTime                     @default(now())
+  updatedAt                   DateTime                     @updatedAt
+  values                      AttributeValue[]
+  categoryProperties          CategoryProperty[]
+  productAttributeAssignments ProductAttributeAssignment[]
+
+  attributeLinks AssignVariantValue[] @relation("AttributeValues")
+  variantLinks   AssignVariantValue[] @relation("VariantAttributes")
+
+  productVariants ProductVariant[]
+}
+
+model AttributeValue {
+  id                  String                @id @default(uuid())
+  attributeId         String
+  value               String
+  isDeleted           Boolean               @default(false)
+  deletedAt           DateTime?
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  storeId             String?
+  attribute           Attribute             @relation(fields: [attributeId], references: [id])
+  store               Store?                @relation(fields: [storeId], references: [id])
+  selectPropertyValue SelectPropertyValue[]
+  variantValues       VariantValue[]
+
+  @@index([attributeId])
+}
+
+model AssignVariantValue {
+  id          String    @id @default(uuid())
+  attributeId String
+  variantId   String
+  isDeleted   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  attribute   Attribute @relation("AttributeValues", fields: [attributeId], references: [id])
+  variant     Attribute @relation("VariantAttributes", fields: [variantId], references: [id])
+
+  @@index([attributeId])
+  @@index([variantId])
+}
+
+model CategoryProperty {
+  id          String          @id @default(uuid())
+  attributeId String
+  categoryId  String
+  isDeleted   Boolean         @default(false)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  property    Attribute       @relation(fields: [attributeId], references: [id])
+  category    ProductCategory @relation(fields: [categoryId], references: [id])
+
+  @@unique([attributeId, categoryId])
+}
+
+model Product {
+  id                      String                 @id @default(uuid())
+  categoryId              String
+  vendorId                String?
+  name                    String
+  description             String?
+  shortDescription        String?
+  status                  ProductStatus
+  productSlug             String                 @unique
+  viewCount               Int?                   @default(0)
+  rating                  Float?
+  ratingCount             Int?                   @default(0)
+  isDeleted               Boolean                @default(false)
+  isDisable               Boolean                @default(false)
+  deletedAt               DateTime?
+  createdAt               DateTime               @default(now())
+  updatedAt               DateTime               @updatedAt
+  storeId                 String
+  embedding               Float[] // AI texture/semantic embedding (text-embedding-004)
+  embeddingUpdatedAt      DateTime?
+  imageEmbedding          Float[] // Visual characteristics embedding
+  imageEmbeddingUpdatedAt DateTime?
+  category                ProductCategory        @relation(fields: [categoryId], references: [id])
+  store                   Store                  @relation(fields: [storeId], references: [id])
+  vendor                  Vendor?                @relation(fields: [vendorId], references: [id])
+  specifications          ProductSpecification[]
+  variants                ProductVariant[]
+  cartWishList            CartWishlist[]
+  productReviews          ProductReview[]
+  orderItems              OrderItem[]
+  featuredProducts        FeaturedProduct[]
+
+  @@index([categoryId])
+}
+
+model ProductReview {
+  id        String   @id @default(uuid())
+  productId String
+  review    String
+  reply     String?
+  reviewBy  String
+  replyBy   String?
+  rating    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id])
+  replier   User?    @relation("UserReplies", fields: [replyBy], references: [id])
+  reviewer  User     @relation("UserReviews", fields: [reviewBy], references: [id])
+
+  @@unique([productId, reviewBy])
+  @@index([productId])
+  @@index([reviewBy])
+  @@map("product_reviews")
+}
+
+model ProductSpecification {
+  id                           String                     @id @default(uuid())
+  productId                    String
+  productAttributeAssignmentId String
+  isDeleted                    Boolean                    @default(false)
+  deletedAt                    DateTime?
+  createdAt                    DateTime                   @default(now())
+  updatedAt                    DateTime                   @updatedAt
+  assignment                   ProductAttributeAssignment @relation(fields: [productAttributeAssignmentId], references: [id])
+  product                      Product                    @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, productAttributeAssignmentId])
+}
+
+model ProductAttributeAssignment {
+  id                        String                     @id @default(uuid())
+  productAttributeId        String
+  type                      ImplementAttributeType
+  assignmentType            AssignmentType
+  isDeleted                 Boolean                    @default(false)
+  deletedAt                 DateTime?
+  createdAt                 DateTime                   @default(now())
+  updatedAt                 DateTime                   @updatedAt
+  inputCustomPropertyValues InputCustomPropertyValue[]
+  productAttribute          Attribute                  @relation(fields: [productAttributeId], references: [id])
+  specifications            ProductSpecification[]
+  variants                  ProductVariant[]           @relation("ProductPropertyAssignment")
+
+  variantVariants     ProductVariant[]      @relation("VariantPropertyAssignment")
+  SelectPropertyValue SelectPropertyValue[]
+
+  @@index([productAttributeId])
+}
+
+model ProductVariant {
+  id                           String                      @id @default(uuid())
+  productId                    String
+  mainVariantId                String?
+  productAttributeAssignmentId String
+  productVariantAssignmentId   String?
+  mainPrice                    Int
+  salePrice                    Int?
+  stock                        Int                         @default(0)
+  barcode                      String?
+  sku                          String                      @unique
+  isAvailable                  Boolean                     @default(true)
+  isDeleted                    Boolean                     @default(false)
+  deletedAt                    DateTime?
+  createdAt                    DateTime                    @default(now())
+  updatedAt                    DateTime                    @updatedAt
+  discounts                    Discount[]
+  productPropertyAssignment    ProductAttributeAssignment  @relation("ProductPropertyAssignment", fields: [productAttributeAssignmentId], references: [id])
+  variantPropertyAssignment    ProductAttributeAssignment? @relation("VariantPropertyAssignment", fields: [productVariantAssignmentId], references: [id])
+  product                      Product                     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  mainVariant                  Attribute?                  @relation(fields: [mainVariantId], references: [id])
+  images                       ProductVariantImage[]
+  variantValues                VariantValue[]
+  cartWishlists                CartWishlist[]
+  orderItems                   OrderItem[]
+
+  @@index([productId])
+}
+
+model VariantValue {
+  id               String         @id @default(uuid())
+  variantId        String
+  attributeValueId String
+  attributeValue   AttributeValue @relation(fields: [attributeValueId], references: [id])
+  variant          ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@unique([variantId, attributeValueId])
+}
+
+model Discount {
+  id        String         @id @default(uuid())
+  variantId String
+  type      DiscountType
+  value     Int
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  variant   ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+}
+
+model ProductMainImage {
+  id             String              @id @default(uuid())
+  productImageId String
+  createdAt      DateTime            @default(now())
+  variantImage   ProductVariantImage @relation(fields: [productImageId], references: [id], onDelete: Cascade)
+}
+
+model ProductVariantImage {
+  id        String             @id @default(uuid())
+  variantId String
+  imageUrl  String
+  alt       String?
+  sortOrder Int?
+  createdAt DateTime           @default(now())
+  mainImage ProductMainImage[]
+  variant   ProductVariant     @relation(fields: [variantId], references: [id], onDelete: Cascade)
+}
+
+model CustomProperty {
+  id            String                    @id @default(uuid())
+  name          String
+  customValueId String?
+  vendorId      String?
+  isDeleted     Boolean                   @default(false)
+  createdAt     DateTime                  @default(now())
+  updatedAt     DateTime                  @updatedAt
+  customValue   InputCustomPropertyValue? @relation(fields: [customValueId], references: [id])
+
+  @@index([vendorId])
+}
+
+model SelectPropertyValue {
+  id                           String                     @id @default(uuid())
+  productAttributeAssignmentId String
+  attributeValueId             String
+  isDeleted                    Boolean                    @default(false)
+  createdAt                    DateTime                   @default(now())
+  updatedAt                    DateTime                   @updatedAt
+  attributeValue               AttributeValue             @relation(fields: [attributeValueId], references: [id])
+  productAttribute             ProductAttributeAssignment @relation(fields: [productAttributeAssignmentId], references: [id], onDelete: Cascade)
+
+  @@unique([productAttributeAssignmentId, attributeValueId])
+  @@index([attributeValueId])
+}
+
+model InputCustomPropertyValue {
+  id                           String                     @id @default(uuid())
+  productAttributeAssignmentId String
+  attributeValue               String
+  isDeleted                    Boolean                    @default(false)
+  createdAt                    DateTime                   @default(now())
+  updatedAt                    DateTime                   @updatedAt
+  customProperties             CustomProperty[]
+  productAttribute             ProductAttributeAssignment @relation(fields: [productAttributeAssignmentId], references: [id], onDelete: Cascade)
+}
+
+model FeaturedProduct {
+  id           String   @id @default(uuid())
+  productId    String
+  vendorId     String
+  storeId      String
+  amount       Int
+  isApproved   Boolean  @default(false)
+  isPaid       Boolean  @default(false)
+  approvedBy   String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  product      Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  vendor       Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  store        Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  approvedUser User?    @relation(fields: [approvedBy], references: [id])
+
+  @@index([productId])
+  @@index([vendorId])
+  @@index([storeId])
+  @@index([approvedBy])
+  @@map("featured_products")
+}

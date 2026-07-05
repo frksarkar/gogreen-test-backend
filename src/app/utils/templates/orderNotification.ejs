@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Order Notification</title>
+    <style>
+      body,
+      table,
+      td,
+      a {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+      img {
+        -interpolation-mode: bicubic;
+      }
+      table {
+        border-collapse: collapse !important;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .responsive-table {
+          width: 100% !important;
+        }
+        .header-text {
+          font-size: 22px !important;
+          padding: 15px 10px !important;
+        }
+        .order-info-table {
+          width: 100% !important;
+        }
+        .product-img {
+          width: 60px !important;
+          height: 60px !important;
+        }
+        .button {
+          padding: 10px 20px !important;
+          font-size: 12px !important;
+        }
+        .hide-mobile {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    style="
+      margin: 0 !important;
+      padding: 0 !important;
+      font-family: Arial, sans-serif;
+      background-color: white;
+      width: 100% !important;
+    "
+  >
+    <table
+      role="presentation"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      align="center"
+      width="100%"
+      style="background-color: white"
+    >
+      <tr>
+        <td align="center">
+          <!-- Logo Section -->
+          <table
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            style="
+              background-color: #f4f8f4;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              width: 600px;
+            "
+          >
+            <tr>
+              <td align="center" style="padding: 10px 0">
+                <a
+                  href="https://multivendor-ui-web.vercel.app/"
+                  target="_blank"
+                  style="text-decoration: none"
+                >
+                  <img
+                    src="/public/logo/logo.png"
+                    alt="GoGreen Logo"
+                    width="140"
+                    height="auto"
+                    style="display: block; max-width: 140px; height: auto"
+                  />
+                </a>
+              </td>
+            </tr>
+          </table>
+
+          <table
+            role="presentation"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            align="center"
+            class="responsive-table"
+            width="600"
+            style="
+              background-color: #f4f8f4;
+              margin: 0 auto;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            "
+          >
+            <!-- Header -->
+            <tr>
+              <td
+                align="center"
+                valign="middle"
+                bgcolor="#2e7d32"
+                style="
+                  background-size: cover;
+                  background-position: center;
+                  background-repeat: no-repeat;
+                  padding: 0;
+                  text-align: center;
+                "
+              >
+                <!-- Full overlay -->
+                <table
+                  width="100%"
+                  cellpadding="0"
+                  cellspacing="0"
+                  border="0"
+                  style="background-color: rgba(0, 0, 0, 0.4)"
+                >
+                  <tr>
+                    <td align="center" style="padding: 50px 20px">
+                      <!-- Heading -->
+                      <h1
+                        style="
+                          margin: 20px 0 0 0;
+                          font-size: 26px;
+                          font-weight: 600;
+                          color: #ffffff;
+                          letter-spacing: 0.5px;
+                        "
+                      >
+                        🎉 New Order Received!
+                      </h1>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Vendor Greeting -->
+            <tr>
+              <td style="padding: 25px 30px 15px 30px">
+                <p
+                  style="
+                    margin: 0 0 10px 0;
+                    font-size: 16px;
+                    color: #2c2c2c;
+                    line-height: 1.6;
+                  "
+                >
+                  Hi <%= VendorName %> ,
+                </p>
+                <p
+                  style="
+                    margin: 0;
+                    font-size: 14px;
+                    color: #6b6b6b;
+                    line-height: 1.6;
+                  "
+                >
+                  Great news! You have received a new order. Please review the
+                  details below and prepare the items for shipment.
+                </p>
+              </td>
+            </tr>
+
+            <!-- Order Summary Box -->
+            <tr>
+              <td style="padding: 0 30px 20px 30px">
+                <table
+                  width="100%"
+                  cellspacing="0"
+                  cellpadding="0"
+                  border="0"
+                  style="
+                    background-color: #f8f9fa;
+                    border-radius: 8px;
+                    border: 1px solid #e0e0e0;
+                  "
+                >
+                  <tr>
+                    <td style="padding: 20px">
+                      <table
+                        width="100%"
+                        cellspacing="0"
+                        cellpadding="0"
+                        border="0"
+                      >
+                        <tr>
+                          <td style="padding-bottom: 12px">
+                            <table
+                              width="100%"
+                              cellspacing="0"
+                              cellpadding="0"
+                              border="0"
+                            >
+                              <tr>
+                                <td
+                                  style="
+                                    font-size: 13px;
+                                    color: #6b6b6b;
+                                    padding-bottom: 5px;
+                                  "
+                                >
+                                  Order Number:
+                                </td>
+                                <td
+                                  align="right"
+                                  style="
+                                    font-size: 15px;
+                                    color: #2c2c2c;
+                                    font-weight: bold;
+                                    padding-bottom: 5px;
+                                  "
+                                >
+                                  <%= orderNumber %>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  style="
+                                    font-size: 13px;
+                                    color: #6b6b6b;
+                                    padding-bottom: 5px;
+                                  "
+                                >
+                                  Order Date:
+                                </td>
+                                <td
+                                  align="right"
+                                  style="
+                                    font-size: 13px;
+                                    color: #2c2c2c;
+                                    padding-bottom: 5px;
+                                  "
+                                >
+                                  <%= date %>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="font-size: 13px; color: #6b6b6b">
+                                  Customer:
+                                </td>
+                                <td
+                                  align="right"
+                                  style="font-size: 13px; color: #2c2c2c"
+                                >
+                                  <%= customerName %>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Order Items Header -->
+            <tr>
+              <td style="padding: 10px 30px 10px 30px">
+                <h2
+                  style="
+                    margin: 0;
+                    font-size: 18px;
+                    color: #2c2c2c;
+                    font-weight: 600;
+                    border-bottom: 2px solid #2e7d32;
+                    padding-bottom: 10px;
+                  "
+                >
+                  Order Items
+                </h2>
+              </td>
+            </tr>
+
+            <!-- Product Item 1 -->
+            <tr>
+              <td style="padding: 15px 30px">
+                <table
+                  width="100%"
+                  cellspacing="0"
+                  cellpadding="0"
+                  border="0"
+                  style="border-bottom: 1px solid #e0e0e0; padding-bottom: 15px"
+                >
+                  <tr>
+                    <td width="80" valign="top">
+                      <img
+                        src="https://media.istockphoto.com/id/1126884662/photo/fashionable-sneakers-isolated-on-background.webp?a=1&b=1&s=612x612&w=0&k=20&c=rzlT3CW4bor4A1Jv5m4Y4qi5BHB88_nlSiiRQ_2HhCM="
+                        alt="Product"
+                        class="product-img"
+                        style="
+                          width: 70px;
+                          height: 70px;
+                          object-fit: cover;
+                          border-radius: 6px;
+                          border: 1px solid #e0e0e0;
+                        "
+                      />
+                    </td>
+                    <td valign="top" style="padding-left: 15px">
+                      <p
+                        style="
+                          margin: 0 0 5px 0;
+                          font-size: 15px;
+                          color: #2c2c2c;
+                          font-weight: 600;
+                        "
+                      >
+                        Premium Running Shoes
+                      </p>
+                      <p
+                        style="
+                          margin: 0 0 5px 0;
+                          font-size: 12px;
+                          color: #6b6b6b;
+                        "
+                      >
+                        SKU: SHOES-001 | Size: 42 | Color: Black
+                      </p>
+                      <p style="margin: 0; font-size: 13px; color: #2c2c2c">
+                        Quantity: <strong>2</strong> × $89.99 =
+                        <strong style="color: #2e7d32">$179.98</strong>
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Product Item 2 -->
+            <tr>
+              <td style="padding: 15px 30px">
+                <table
+                  width="100%"
+                  cellspacing="0"
+                  cellpadding="0"
+                  border="0"
+                  style="border-bottom: 1px solid #e0e0e0; padding-bottom: 15px"
+                >
+                  <tr>
+                    <td width="80" valign="top">
+                      <img
+                        src="https://images.unsplash.com/photo-1529720317453-c8da503f2051?w=400"
+                        alt="Product"
+                        class="product-img"
+                        style="
+                          width: 70px;
+                          height: 70px;
+                          object-fit: cover;
+                          border-radius: 6px;
+                          border: 1px solid #e0e0e0;
+                        "
+                      />
+                    </td>
+                    <td valign="top" style="padding-left: 15px">
+                      <p
+                        style="
+                          margin: 0 0 5px 0;
+                          font-size: 15px;
+                          color: #2c2c2c;
+                          font-weight: 600;
+                        "
+                      >
+                        Cotton T-Shirt
+                      </p>
+                      <p
+                        style="
+                          margin: 0 0 5px 0;
+                          font-size: 12px;
+                          color: #6b6b6b;
+                        "
+                      >
+                        SKU: TSH-045 | Size: L | Color: White
+                      </p>
+                      <p style="margin: 0; font-size: 13px; color: #2c2c2c">
+                        Quantity: <strong>1</strong> × $29.99 =
+                        <strong style="color: #2e7d32">$29.99</strong>
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Order Total -->
+            <tr>
+              <td style="padding: 20px 30px">
+                <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td
+                      align="right"
+                      style="padding: 5px 0; font-size: 14px; color: #6b6b6b"
+                    >
+                      Subtotal:
+                    </td>
+                    <td
+                      align="right"
+                      width="100"
+                      style="
+                        padding: 5px 0 5px 15px;
+                        font-size: 14px;
+                        color: #2c2c2c;
+                      "
+                    >
+                      $209.97
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      align="right"
+                      style="padding: 5px 0; font-size: 14px; color: #6b6b6b"
+                    >
+                      Platform Fee (5%):
+                    </td>
+                    <td
+                      align="right"
+                      style="
+                        padding: 5px 0 5px 15px;
+                        font-size: 14px;
+                        color: #dc3545;
+                      "
+                    >
+                      -$10.50
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      align="right"
+                      style="
+                        padding: 10px 0 0 0;
+                        font-size: 16px;
+                        color: #2c2c2c;
+                        font-weight: bold;
+                        border-top: 2px solid #e0e0e0;
+                      "
+                    >
+                      Your Earnings:
+                    </td>
+                    <td
+                      align="right"
+                      style="
+                        padding: 10px 0 0 15px;
+                        font-size: 18px;
+                        color: #2e7d32;
+                        font-weight: bold;
+                        border-top: 2px solid #e0e0e0;
+                      "
+                    >
+                      $199.47
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Shipping Details -->
+            <tr>
+              <td style="padding: 10px 30px 20px 30px">
+                <table
+                  width="100%"
+                  cellspacing="0"
+                  cellpadding="0"
+                  border="0"
+                  style="
+                    background-color: #fff8e1;
+                    border-radius: 8px;
+                    border-left: 4px solid #ffc107;
+                  "
+                >
+                  <tr>
+                    <td style="padding: 20px">
+                      <h3
+                        style="
+                          margin: 0 0 10px 0;
+                          font-size: 16px;
+                          color: #2c2c2c;
+                          font-weight: 600;
+                        "
+                      >
+                        📦 Shipping Address
+                      </h3>
+                      <p
+                        style="
+                          margin: 0;
+                          font-size: 14px;
+                          color: #2c2c2c;
+                          line-height: 1.6;
+                        "
+                      >
+                        <strong>Saria Khatun</strong><br />
+                        House 123, Road 45, Sector 11<br />
+                        Uttara, Dhaka 1230<br />
+                        Bangladesh<br />
+                        Phone: +880 1712-345678
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Action Buttons -->
+            <tr>
+              <td style="padding: 10px 30px 30px 30px; text-align: center">
+                <table
+                  role="presentation"
+                  cellspacing="0"
+                  cellpadding="0"
+                  border="0"
+                  align="center"
+                >
+                  <tr>
+                    <td style="padding: 0 10px 10px 10px">
+                      <a
+                        href="https://multivendor-ui-web.vercel.app/vendor/orders"
+                        class="button"
+                        style="
+                          display: inline-block;
+                          padding: 14px 10px;
+                          background-color: #2e7d32;
+                          color: #ffffff;
+                          text-decoration: none;
+                          font-size: 12px;
+                          font-weight: bold;
+                          border-radius: 6px;
+                          letter-spacing: 0.5px;
+                        "
+                      >
+                        View Order Details
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0 10px">
+                      <a
+                        href="https://multivendor-ui-web.vercel.app/vendor/orders/print/123456"
+                        style="
+                          display: inline-block;
+                          padding: 12px 30px;
+                          background-color: #ffffff;
+                          color: #2e7d32;
+                          text-decoration: none;
+                          font-size: 12px;
+                          font-weight: 600;
+                          border-radius: 6px;
+                          border: 2px solid #2e7d32;
+                        "
+                      >
+                        Print Invoice
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Important Notes -->
+            <tr>
+              <td
+                style="
+                  padding: 20px 30px;
+                  background-color: #f8f9fa;
+                  border-top: 1px solid #e0e0e0;
+                "
+              >
+                <h3
+                  style="
+                    margin: 0 0 10px 0;
+                    font-size: 15px;
+                    color: #2c2c2c;
+                    font-weight: 600;
+                  "
+                >
+                  ⚡ Action Required
+                </h3>
+                <ul
+                  style="
+                    margin: 0;
+                    padding-left: 20px;
+                    font-size: 13px;
+                    color: #6b6b6b;
+                    line-height: 1.8;
+                  "
+                >
+                  <li>
+                    Please process this order within <strong>24 hours</strong>
+                  </li>
+                  <li>Update the order status once items are ready to ship</li>
+                  <li>Provide tracking information to the customer</li>
+                  <li>Contact customer support if you have any questions</li>
+                </ul>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td style="background: #6b6b6b; padding: 20px">
+                <table width="100%">
+                  <tr>
+                    <td style="color: #eaeaea; font-size: 12px">
+                      © 2025 GoGreen. All rights reserved.
+                    </td>
+                    <td align="right">
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/32/733/733547.png"
+                        width="18"
+                        style="padding: 0 2px"
+                      />
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/32/3536/3536505.png"
+                        width="18"
+                        style="padding: 0 2px"
+                      />
+                      <img
+                        src="https://cdn-icons-png.flaticon.com/32/733/733558.png"
+                        width="18"
+                        style="padding: 0 2px"
+                      />
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

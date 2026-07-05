@@ -1,0 +1,98 @@
+model Role {
+  id              String            @id @default(uuid())
+  name            String            @unique
+  slug            String            @unique
+  description     String?
+  isActive        Boolean           @default(true)
+  isDeleted       Boolean           @default(false)
+  systemLevel     RoleType
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  roleCategories  RoleCategory[]
+  childRelations  RoleInheritance[] @relation("ChildRole")
+  parentRelations RoleInheritance[] @relation("ParentRole")
+  userRoles       UserRole[]
+
+  @@map("roles")
+}
+
+model UserRole {
+  id          String   @id @default(uuid())
+  user_id     String
+  role_id     String
+  assigned_by String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  assignedBy  User?    @relation("AssignedBy", fields: [assigned_by], references: [id], onDelete: Cascade)
+  role        Role     @relation(fields: [role_id], references: [id], onDelete: Cascade)
+  user        User     @relation("UserRoles", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("user_roles")
+}
+
+model RoleInheritance {
+  id             String   @id @default(uuid())
+  parent_role_id String
+  child_role_id  String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  child          Role     @relation("ChildRole", fields: [child_role_id], references: [id], onDelete: Cascade)
+  parent         Role     @relation("ParentRole", fields: [parent_role_id], references: [id], onDelete: Cascade)
+
+  @@unique([parent_role_id, child_role_id])
+  @@map("role_inheritance")
+}
+
+model Permission {
+  id                  String               @id @default(uuid())
+  key                 String               @unique
+  slug                String               @unique
+  description         String?
+  isActive            Boolean              @default(true)
+  isDeleted           Boolean              @default(false)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  categoryPermissions CategoryPermission[]
+
+  @@map("permissions")
+}
+
+model Category {
+  id                  String               @id @default(uuid())
+  name                String               @unique
+  description         String?
+  slug                String?              @unique
+  isDeleted           Boolean              @default(false)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  categoryPermissions CategoryPermission[]
+  roleCategories      RoleCategory[]
+
+  @@map("permissions_category")
+}
+
+model CategoryPermission {
+  id            String     @id @default(uuid())
+  category_id   String
+  permission_id String
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  category      Category   @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  permission    Permission @relation(fields: [permission_id], references: [id], onDelete: Cascade)
+
+  @@unique([category_id, permission_id])
+  @@map("category_permissions")
+}
+
+model RoleCategory {
+  id                     String   @id @default(uuid())
+  role_id                String
+  permission_category_id String
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  permission_category    Category @relation(fields: [permission_category_id], references: [id], onDelete: Cascade)
+  role                   Role     @relation(fields: [role_id], references: [id], onDelete: Cascade)
+
+  @@unique([role_id, permission_category_id])
+  @@map("role_category")
+}

@@ -1,0 +1,13 @@
+model BestDeal {
+  id        String    @id @default(uuid())
+  title     String
+  subtitle  String
+  image     String
+  link      String?
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("best_deals")
+}

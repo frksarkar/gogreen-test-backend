@@ -1,0 +1,55 @@
+enum AIModelMode {
+  TEST
+  PROD
+}
+
+model AIConversation {
+  id         String      @id @default(uuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id])
+  role       RoleType
+  messages   Json
+  tokenUsage Int         @default(0)
+  mode       AIModelMode @default(TEST)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@map("ai_conversations")
+}
+
+model AIUsageLog {
+  id           String   @id @default(uuid())
+  userId       String?
+  user         User?    @relation(fields: [userId], references: [id])
+  service      String   @default("CHAT") // "CHAT" | "SEARCH"
+  tokensUsed   Int
+  costEstimate Float
+  createdAt    DateTime @default(now())
+
+  @@map("ai_usage_logs")
+}
+
+model SearchLog {
+  id               String   @id @default(uuid())
+  userId           String?
+  query            String
+  extractedFilters Json?
+  resultCount      Int      @default(0)
+  searchMode       String   @default("PROD")
+  isFallback       Boolean  @default(false)
+  createdAt        DateTime @default(now())
+
+  @@map("search_logs")
+}
+
+model ImageSearchLog {
+  id               String   @id @default(uuid())
+  userId           String?
+  user             User?    @relation(fields: [userId], references: [id])
+  imageUrl         String
+  similarityScores Json?
+  resultCount      Int      @default(0)
+  createdAt        DateTime @default(now())
+
+  @@map("image_search_logs")
+}

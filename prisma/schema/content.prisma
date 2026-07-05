@@ -1,0 +1,108 @@
+model ContentSection {
+  id        String     @id @default(uuid())
+  page      StaticPage
+  section   String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  content   Content[]
+
+  @@unique([page, section])
+  @@map("content_section")
+}
+
+model Content {
+  id          String          @id @default(uuid())
+  title       String
+  description String
+  page        StaticPage
+  section_id  String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  Section     ContentSection? @relation(fields: [section_id], references: [id])
+
+  @@map("content")
+}
+
+model Banner {
+  id       String         @id @default(uuid())
+  title    String
+  isActive Boolean        @default(true)
+  position BannerPosition
+  order    Int            @default(0)
+
+  bannerImages BannerImage[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@unique([position, order])
+  @@map("banner")
+}
+
+model BannerImage {
+  id          String   @id @default(uuid())
+  banner_id   String
+  image_url   String
+  BannerImage Banner   @relation(fields: [banner_id], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("banner_images")
+}
+
+model Blog {
+  id        String   @id @default(uuid())
+  title     String
+  isActive  Boolean  @default(true)
+  views     Int      @default(0)
+  blog      Json
+  image_url String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("blogs")
+}
+
+model Campaign {
+  id                String       @id @default(uuid())
+  name              String
+  description       Json?
+  code              String?      @unique
+  discountType      DiscountType
+  discount          Decimal
+  maxDiscountAmount Decimal?
+  minOrderAmount    Decimal?
+  isActive          Boolean      @default(true)
+  startDate         DateTime
+  endDate           DateTime
+  maxUsageCount     Int?
+  currentUsageCount Int          @default(0)
+  deletedAt         DateTime?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  @@map("campaigns")
+}
+
+model Tax {
+  id        String   @id @default(uuid())
+  name      String
+  rate      Decimal
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tax")
+}
+
+model Testimonial {
+  id        String   @id @default(uuid())
+  rating    Int
+  review    String
+  user_id   String
+  user      User     @relation(fields: [user_id], references: [id])
+  order_id  String
+  order     Order    @relation(fields: [order_id], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("testimonials")
+}

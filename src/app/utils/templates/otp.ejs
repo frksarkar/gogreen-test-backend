@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OTP Email</title>
+    <style>
+      @media only screen and (max-width: 600px) {
+        .email-container {
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+        .mobile-padding {
+          padding: 20px !important;
+        }
+        .mobile-heading {
+          font-size: 24px !important;
+        }
+        .otp-code {
+          font-size: 36px !important;
+          letter-spacing: 6px !important;
+        }
+        .social-icon-cell {
+          padding: 0 8px !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      font-family:
+        -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto,
+        &quot;Helvetica Neue&quot;, Arial, sans-serif;
+    "
+  >
+    <table
+      width="600px"
+      cellpadding="0"
+      cellspacing="0"
+      style="background: #f4f8f4; margin: 0 auto"
+    >
+      <tr>
+        <td align="center">
+          <table
+            class="email-container"
+            width="600"
+            cellpadding="0"
+            cellspacing="0"
+            style="max-width: 600px"
+          >
+            <!-- Header Banner -->
+            <tr>
+              <td>
+                <table
+                  width="100%"
+                  cellpadding="0"
+                  cellspacing="0"
+                  style="
+                    background: #f4f8f4;
+                    padding: 20px 50px;
+                    border-bottom: 1px solid #129512;
+                  "
+                >
+                  <tr>
+                    <td>
+                      <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td width="50%">
+                            <a
+                              href="https://multivendor-ui-web.vercel.app/"
+                              target="_blank"
+                              style="text-decoration: none"
+                            >
+                              <img
+                                src="https://res.cloudinary.com/do4lrczga/image/upload/v1773511827/logo_te8qci.png"
+                                alt="GoGreen Logo"
+                                width="120"
+                                style="display: block; border: 0"
+                              />
+                            </a>
+                          </td>
+                          <td width="50%" align="right">
+                            <table
+                              cellpadding="8"
+                              cellspacing="0"
+                              style="
+                                background: rgba(255, 255, 255, 0.2);
+                                border-radius: 20px;
+                              "
+                            >
+                              <tr>
+                                <td
+                                  style="
+                                    font-size: 13px;
+
+                                    white-space: nowrap;
+                                  "
+                                >
+                                  📅 <%= date %>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- Main Content -->
+            <tr>
+              <td style="padding: 0">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                  <!-- Security Icon -->
+                  <tr>
+                    <td
+                      align="center"
+                      style="padding: 10px 50px 20px"
+                      class="mobile-padding"
+                    >
+                      <table
+                        cellpadding="0"
+                        cellspacing="0"
+                        style="
+                          width: 80px;
+                          height: 80px;
+                          border-radius: 50%;
+                          background-color: #2e7d32;
+                        "
+                      >
+                        <tr>
+                          <td
+                            align="center"
+                            valign="middle"
+                            style="font-size: 40px"
+                          >
+                            🔐
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- OTP Title -->
+                  <tr>
+                    <td
+                      align="center"
+                      style="padding: 0 50px 30px"
+                      class="mobile-padding"
+                    >
+                      <h1
+                        class="mobile-heading"
+                        style="
+                          margin: 0;
+                          font-size: 32px;
+                          font-weight: 700;
+                          color: #2e7d32;
+                        "
+                      >
+                        Your One-Time Password
+                      </h1>
+                    </td>
+                  </tr>
+
+                  <!-- Greeting -->
+                  <tr>
+                    <td
+                      style="
+                        padding: 0 50px 20px;
+                        font-size: 15px;
+                        color: #4b5563;
+                        line-height: 1.6;
+                        font-weight: 600;
+                      "
+                      class="mobile-padding"
+                    >
+                      Dear
+                      <span style="color: #2e7d32"> User </span>,
+                    </td>
+                  </tr>
+
+                  <!-- Message -->
+                  <tr>
+                    <td
+                      style="
+                        padding: 0 50px 30px;
+                        font-size: 15px;
+                        color: #4b5563;
+                        line-height: 1.6;
+                      "
+                      class="mobile-padding"
+                    >
+                      Here is your One-Time Password to securely log in to your
+                      GoGreen account:
+                    </td>
+                  </tr>
+
+                  <!-- OTP Box -->
+                  <tr>
+                    <td
+                      align="center"
+                      style="padding: 0 50px 30px"
+                      class="mobile-padding"
+                    >
+                      <table
+                        width="100%"
+                        cellpadding="30"
+                        cellspacing="0"
+                        style="
+                          background: linear-gradient(135deg, #dcfce7, #d1fae5);
+                          border-radius: 12px;
+                          border: 2px dashed #16a34a;
+                          box-shadow: 0 4px 15px rgba(22, 163, 74, 0.1);
+                        "
+                      >
+                        <tr>
+                          <td align="center">
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td
+                                  align="center"
+                                  class="otp-code"
+                                  style="
+                                    font-size: 48px;
+                                    font-weight: 700;
+                                    color: #16a34a;
+                                    letter-spacing: 10px;
+                                    padding-bottom: 15px;
+                                    font-family:
+                                      &quot;Courier New&quot;, monospace;
+                                  "
+                                >
+                                  <%= otp %>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td align="center" style="padding-top: 10px">
+                                  <table
+                                    cellpadding="6"
+                                    cellspacing="0"
+                                    style="
+                                      background: rgba(22, 163, 74, 0.12);
+                                      border-radius: 20px;
+                                      display: inline-block;
+                                    "
+                                  >
+                                    <tr>
+                                      <td
+                                        style="
+                                          font-size: 14px;
+                                          color: #16a34a;
+                                          font-weight: 600;
+                                        "
+                                      >
+                                        ⏱️ Valid for 5 minutes
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- Warning -->
+                  <tr>
+                    <td style="padding: 0 50px 20px" class="mobile-padding">
+                      <table
+                        width="100%"
+                        cellpadding="15"
+                        cellspacing="0"
+                        style="
+                          background: #fef3c7;
+                          border-left: 4px solid #f59e0b;
+                          border-radius: 6px;
+                        "
+                      >
+                        <tr>
+                          <td
+                            style="
+                              font-size: 14px;
+                              color: #92400e;
+                              line-height: 1.6;
+                            "
+                          >
+                            ⚠️ If you did not request this OTP, please disregard
+                            this email or contact our support team immediately.
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- Thank You -->
+                  <tr>
+                    <td
+                      style="
+                        padding: 20px 50px;
+                        font-size: 15px;
+                        color: #4b5563;
+                        line-height: 1.6;
+                      "
+                      class="mobile-padding"
+                    >
+                      Thank you for shopping with GoGreen! 🌱
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="padding: 0 50px" class="mobile-padding">
+                      <hr style="border: 0; border-top: 1px solid #e5e7eb" />
+                    </td>
+                  </tr>
+
+                  <!-- Signature -->
+                  <tr>
+                    <td
+                      style="
+                        padding: 30px 50px 40px;
+                        font-size: 14px;
+                        color: #4b5563;
+                      "
+                      class="mobile-padding"
+                    >
+                      Best regards,<br />
+                      <strong style="color: #16a34a; font-weight: 600"
+                        >Team GoGreen</strong
+                      >
+                      💚
+                    </td>
+                  </tr>
+
+                  <!-- Footer -->
+                  <tr>
+                    <td style="background: #6b6b6b; padding: 20px">
+                      <table width="100%">
+                        <tr>
+                          <td style="color: #eaeaea; font-size: 12px">
+                            © 2025 GoGreen. All rights reserved.
+                          </td>
+                          <td align="right">
+                            <img
+                              src="https://cdn-icons-png.flaticon.com/32/733/733547.png"
+                              width="18"
+                              style="padding: 0 2px"
+                            />
+                            <img
+                              src="https://cdn-icons-png.flaticon.com/32/3536/3536505.png"
+                              width="18"
+                              style="padding: 0 2px"
+                            />
+                            <img
+                              src="https://cdn-icons-png.flaticon.com/32/733/733558.png"
+                              width="18"
+                              style="padding: 0 2px"
+                            />
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

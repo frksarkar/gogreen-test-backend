@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Order Confirmation</title>
+    <style type="text/css">
+      @media only screen and (max-width: 600px) {
+        .email-container {
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+
+        .column {
+          display: block !important;
+          width: 100% !important;
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+          padding-bottom: 15px !important;
+        }
+
+        .card-height {
+          height: auto !important;
+          min-height: auto !important;
+        }
+
+        .mobile-padding {
+          padding: 15px !important;
+        }
+
+        .mobile-heading {
+          font-size: 22px !important;
+        }
+
+        .mobile-text {
+          font-size: 13px !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      font-family: &quot;Segoe UI&quot;, Tahoma, Geneva, Verdana, sans-serif;
+    "
+  >
+    <!-- Main Wrapper Table -->
+    <table
+      width="100%"
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      style="background-color: #f4f4f4"
+    >
+      <tr>
+        <td align="center" style="padding: 0">
+          <table
+            width="100%"
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            class="email-container"
+            style="max-width: 600px; background-color: #f4f8f4"
+          >
+            <tr>
+              <td style="padding: 0">
+                <!-- Logo Section -->
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td align="center" style="padding: 10px 0">
+                      <a
+                        href="https://multivendor-ui-web.vercel.app/"
+                        target="_blank"
+                        style="text-decoration: none"
+                      >
+                        <img
+                          src="https://res.cloudinary.com/do4lrczga/image/upload/v1773511827/logo_te8qci.png"
+                          alt="GoGreen Logo"
+                          width="140"
+                          height="auto"
+                          style="display: block; max-width: 140px; height: auto"
+                        />
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Email Container  -->
+                <table
+                  width="100%"
+                  border="0"
+                  cellpadding="0"
+                  cellspacing="0"
+                  class="email-container"
+                  style="
+                    max-width: 600px;
+                    background-color: #f4f8f4;
+
+                    margin: 0 auto;
+                  "
+                >
+                  <!-- Header Section -->
+                  <tr>
+                    <td
+                      background="https://res.cloudinary.com/do4lrczga/image/upload/v1773511724/orderConfirmationBanner_cnlxgv.jpg"
+                      style="
+                        background-color: #17651b;
+                        padding: 0;
+                        text-align: center;
+                        background-position: center;
+                        background-size: cover;
+                        background-repeat: no-repeat;
+                      "
+                    >
+                      <!-- Overlay Table -->
+                      <table
+                        width="100%"
+                        cellpadding="0"
+                        cellspacing="0"
+                        style="background-color: rgba(0, 0, 0, 0.55)"
+                      >
+                        <tr>
+                          <td style="padding: 60px 20px; text-align: center">
+                            <h1
+                              style="
+                                margin: 0;
+                                font-size: 28px;
+                                font-weight: bold;
+                                color: #ffffff;
+                                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+                              "
+                            >
+                              Order Confirmed!
+                            </h1>
+
+                            <p
+                              style="
+                                margin: 10px 0 0;
+                                font-size: 16px;
+                                color: #ffffff;
+                                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+                              "
+                            >
+                              Your order has been successfully placed
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- Content Section -->
+                  <tr>
+                    <td style="padding: 30px 20px" class="mobile-padding">
+                      <table
+                        width="100%"
+                        border="0"
+                        cellpadding="0"
+                        cellspacing="0"
+                      >
+                        <!-- Thank You Section -->
+                        <tr>
+                          <td align="center" style="padding-bottom: 30px">
+                            <h2
+                              style="
+                                margin: 0 0 10px 0;
+                                font-size: 24px;
+                                color: #2c2c2c;
+                              "
+                            >
+                              Thank You for Your Order!
+                            </h2>
+                            <p
+                              style="margin: 0; font-size: 15px; color: #6b6b6b"
+                            >
+                              We're excited to get your items to you soon.
+                            </p>
+                          </td>
+                        </tr>
+
+                        <!-- Order Number Section -->
+                        <tr>
+                          <td style="padding-bottom: 25px">
+                            <table
+                              width="100%"
+                              border="0"
+                              cellpadding="15"
+                              cellspacing="0"
+                              style="
+                                background-color: #d9edf7;
+                                border-radius: 6px;
+                              "
+                            >
+                              <tr>
+                                <td align="center">
+                                  <p
+                                    style="
+                                      margin: 0;
+                                      font-size: 18px;
+                                      color: #2e86c1;
+                                      font-weight: normal;
+                                    "
+                                  >
+                                    Order <%= orderId%>
+                                  </p>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <!-- Order Summary -->
+                        <tr>
+                          <td style="padding-bottom: 15px">
+                            <h3
+                              style="
+                                margin: 0;
+                                font-size: 18px;
+                                color: #2c2c2c;
+                                font-weight: bold;
+                              "
+                            >
+                              Order Summary
+                            </h3>
+                          </td>
+                        </tr>
+
+                        <!-- Order Table -->
+                 <% orderItems.forEach(function(item) { %>
+  <tr>
+    <td style="padding: 12px; font-size: 14px; color: #6b6b6b; border-bottom: 1px solid #f0f0f0;">
+      <%= item.name %>
+    </td>
+    <td align="center" style="padding: 12px; font-size: 14px; color: #6b6b6b; border-bottom: 1px solid #f0f0f0;">
+      <%= item.quantity %>
+    </td>
+    <td align="right" style="padding: 12px; font-size: 14px; color: #6b6b6b; border-bottom: 1px solid #f0f0f0;">
+      $<%= item.price.toFixed(2) %>
+    </td>
+  </tr>
+<% }); %>
+
+
+                        <tr>
+                          <td style="padding-top: 20px">
+                            <table
+                              width="100%"
+                              border="0"
+                              cellpadding="0"
+                              cellspacing="0"
+                            >
+                              <tr>
+                                <td
+                                  width="48%"
+                                  valign="top"
+                                  class="column"
+                                  style="padding-right: 2%"
+                                >
+                                  <table
+                                    width="100%"
+                                    border="0"
+                                    cellpadding="20"
+                                    cellspacing="0"
+                                    class="card-height"
+                                    style="
+                                      background-color: #f8f9fa;
+                                      border-radius: 6px;
+                                      height: 180px;
+                                    "
+                                  >
+                                    <tr>
+                                      <td valign="middle">
+                                        <table
+                                          width="100%"
+                                          border="0"
+                                          cellpadding="0"
+                                          cellspacing="0"
+                                        >
+                                          <tr>
+                                            <td
+                                              style="
+                                                padding: 6px 0;
+                                                font-size: 14px;
+                                                color: #6b6b6b;
+                                              "
+                                            >
+                                             Sub Total
+                                            </td>
+                                            <td
+                                              align="right"
+                                              style="
+                                                padding: 6px 0;
+                                                font-size: 14px;
+                                                color: #6b6b6b;
+                                              "
+                                            >
+                                              <%= subTotal %> 
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td
+                                              style="
+                                                padding: 6px 0;
+                                                font-size: 14px;
+                                                color: #6b6b6b;
+                                              "
+                                            >
+                                            Shipping Cost
+                                            </td>
+                                            <td
+                                              align="right"
+                                              style="
+                                                padding: 6px 0;
+                                                font-size: 14px;
+                                                color: #6b6b6b;
+                                              "
+                                            >
+                                              <%= shippingCost %>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td
+                                              style="
+                                                padding: 6px 0;
+                                                font-size: 14px;
+                                                color: #6b6b6b;
+                                              "
+                                            >
+                                             Tax
+                                            </td>
+                                            <td
+                                              align="right"
+                                              style="
+                                                padding: 6px 0;
+                                                font-size: 14px;
+                                                color: #6b6b6b;
+                                              "
+                                            >
+                                              <%= tax %>
+                                            </td>
+                                          </tr>
+                                          <tr
+                                            style="
+                                              border-top: 2px solid #e0e0e0;
+                                            "
+                                          >
+                                            <td
+                                              style="
+                                                padding: 15px 0 0 0;
+                                                font-size: 20px;
+                                                color: #2c2c2c;
+                                                font-weight: bold;
+                                              "
+                                            >
+                                              Total
+                                            </td>
+                                            <td
+                                              align="right"
+                                              style="
+                                                padding: 15px 0 0 0;
+                                                font-size: 20px;
+                                                color: #2c2c2c;
+                                                font-weight: bold;
+                                              "
+                                            >
+                                              <%= totalAmount %>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+
+                                <!--  Shipping Address -->
+                                <td
+                                  width="48%"
+                                  valign="top"
+                                  class="column"
+                                  style="padding-left: 2%"
+                                >
+                                  <table
+                                    width="100%"
+                                    border="0"
+                                    cellpadding="20"
+                                    cellspacing="0"
+                                    class="card-height"
+                                    style="
+                                      background-color: #f8f9fa;
+                                      border-radius: 6px;
+                                      height: 180px;
+                                    "
+                                  >
+                                    <tr>
+                                      <td valign="top">
+                                        <h4
+                                          style="
+                                            margin: 0 0 10px 0;
+                                            font-size: 16px;
+                                            color: #2c2c2c;
+                                          "
+                                        >
+                                          Shipping Address
+                                        </h4>
+                                        <p
+                                          style="
+                                            margin: 0 0 5px 0;
+                                            font-size: 14px;
+                                            color: #6b6b6b;
+                                          "
+                                        >
+                                          <%= customerName %>
+                                        </p>
+                                        <p
+                                          style="
+                                            margin: 0 0 5px 0;
+                                            font-size: 14px;
+                                            color: #6b6b6b;
+                                          "
+                                        >
+                                          <%= streetAddress %>
+
+                                        </p>
+                                        <p
+                                          style="
+                                            margin: 0 0 5px 0;
+                                            font-size: 14px;
+                                            color: #6b6b6b;
+                                          "
+                                        >
+                                          <%= district %>
+                                        </p>
+                                        <p
+                                          style="
+                                            margin: 0;
+                                            font-size: 14px;
+                                            color: #6b6b6b;
+                                          "
+                                        >
+                                          <%= division %>
+                                        </p>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+
+                        <!-- Expected Delivery Section -->
+                        <tr>
+                          <td style="padding-top: 20px">
+                            <table
+                              width="100%"
+                              border="0"
+                              cellpadding="15"
+                              cellspacing="0"
+                              style="
+                                background-color: #e8f4f8;
+                                border-left: 4px solid #4a90e2;
+                                border-radius: 0 6px 6px 0;
+                              "
+                            >
+                              <tr>
+                                <td style="padding: 15px 20px">
+                                  <p
+                                    style="
+                                      margin: 0 0 5px 0;
+                                      font-size: 15px;
+                                      color: #2c2c2c;
+                                    "
+                                  >
+                                    Expected Delivery
+                                  </p>
+                                  <p
+                                    style="
+                                      margin: 0;
+                                      font-size: 18px;
+                                      color: #2e86c1;
+                                      font-weight: bold;
+                                    "
+                                  >
+                                    Friday, February 2, 2026
+                                  </p>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                   <tr>
+                    <td><a href="<%= invoice_url %>" style="text-decoration: underline; font-style: italic;">Download the order summary</a></td>
+                  </tr>
+                  <!-- Customer Service Section -->
+                  <tr>
+                    <td style="padding: 30px; text-align: center">
+                      <table
+                        width="100%"
+                        border="0"
+                        cellpadding="0"
+                        cellspacing="0"
+                      >
+                        <tr>
+                          <td align="center">
+                            <p
+                              style="margin: 0; font-size: 14px; color: #6b6b6b"
+                            >
+                              Questions? Reply to this email or contact us at<br />
+                              <a
+                                href="mailto:support@gogreen.com"
+                                style="
+                                  color: #2e86c1;
+                                  text-decoration: none;
+                                  font-weight: bold;
+                                "
+                                >support@gogreen.com</a
+                              >
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- Footer -->
+                  <tr>
+                    <td style="background: #6b6b6b; padding: 20px">
+                      <table width="100%">
+                        <tr>
+                          <td style="color: #eaeaea; font-size: 12px">
+                            © 2025 GoGreen. All rights reserved.
+                          </td>
+                          <td align="right">
+                            <img
+                              src="https://cdn-icons-png.flaticon.com/32/733/733547.png"
+                              width="18"
+                              style="padding: 0 2px"
+                            />
+                            <img
+                              src="https://cdn-icons-png.flaticon.com/32/3536/3536505.png"
+                              width="18"
+                              style="padding: 0 2px"
+                            />
+                            <img
+                              src="https://cdn-icons-png.flaticon.com/32/733/733558.png"
+                              width="18"
+                              style="padding: 0 2px"
+                            />
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

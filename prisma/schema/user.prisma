@@ -1,0 +1,108 @@
+model User {
+  id                String            @id @default(uuid())
+  name              String?
+  referral_code     String?           @unique
+  email             String?           @unique
+  phone             String?           @unique
+  password          String?
+  profile_photo     String?
+  gender            Gender?
+  birthday          DateTime?
+  isVerified        Boolean           @default(false)
+  isDeleted         Boolean           @default(false)
+  isActive          Boolean           @default(false)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  addresses         Address[]
+  cartWishList      CartWishlist[]
+  replies           ProductReview[]   @relation("UserReplies")
+  reviews           ProductReview[]   @relation("UserReviews")
+  referralsMade     ReferredUsers[]   @relation("ReferralRelation")
+  referralsReceived ReferredUsers[]   @relation("ReferredRelation")
+  assignedRoles     UserRole[]        @relation("AssignedBy")
+  userRoles         UserRole[]        @relation("UserRoles")
+  followedStores    VendorFollower[]
+  storeReviews      VendorReview[]
+  vendorStaff       VendorStaff[]
+  orders            Order[]
+  vendor            Vendor?
+  aiconversations   AIConversation[]
+  aiusageLogs       AIUsageLog[]
+  imageSearchLogs   ImageSearchLog[]
+  testimonials      Testimonial[]
+  featuredProducts  FeaturedProduct[]
+
+  @@map("users")
+}
+
+model Address {
+  id             String      @id @default(uuid())
+  label          AddressType @default(HOME)
+  division       String
+  district       String
+  area           String?
+  street_address String
+  landmark       String?
+  zipcode        String?
+  isDefault      Boolean     @default(false)
+  contactName    String?
+  contactPhone   String?
+  isDeleted      Boolean     @default(false)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  user_id        String
+  orders         Order[]
+  user           User?       @relation(fields: [user_id], references: [id])
+}
+
+model ReferredUsers {
+  id            String          @id @default(uuid())
+  referral_user String
+  referred_user String
+  rewards_id    String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  referral      User            @relation("ReferralRelation", fields: [referral_user], references: [id])
+  referred      User            @relation("ReferredRelation", fields: [referred_user], references: [id])
+  rewards       ReferralRewards @relation(fields: [rewards_id], references: [id])
+
+  @@unique([referral_user, referred_user, rewards_id])
+  @@map("referral_users")
+}
+
+model ReferralRewards {
+  id            String          @id @default(uuid())
+  level         Int             @unique
+  reward_type   String
+  reward_value  Float
+  referredUsers ReferredUsers[]
+
+  @@map("referral_rewards")
+}
+
+model ReferralEarning {
+  id        String   @id @default(uuid())
+  user_id   String
+  amount    Float    @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("referral_earnings")
+}
+
+model ReferralConfig {
+  id        String @id @default(uuid())
+  max_level Int
+
+  @@map("referral_config")
+}
+
+model Notifications {
+  id        String   @id @default(uuid())
+  user_id   String
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("notifications")
+}

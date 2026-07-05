@@ -1,0 +1,13 @@
+-- AlterTable
+ALTER TABLE "Product" ADD COLUMN     "isDisable" BOOLEAN NOT NULL DEFAULT false;
+
+-- AlterTable
+ALTER TABLE "product_reviews" ALTER COLUMN "rating" SET DATA TYPE DOUBLE PRECISION;
+
+-- AlterTable
+ALTER TABLE "stores" ADD COLUMN     "rating" DOUBLE PRECISION NOT NULL DEFAULT 0,
+ADD COLUMN     "reviewCount" INTEGER NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE "vendors" ADD COLUMN     "rating" DOUBLE PRECISION NOT NULL DEFAULT 0,
+ADD COLUMN     "reviewCount" INTEGER NOT NULL DEFAULT 0;

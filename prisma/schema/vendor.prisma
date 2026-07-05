@@ -1,0 +1,465 @@
+model Vendor {
+  id               String                    @id @default(uuid())
+  userId           String                    @unique
+  status           VendorStatus              @default(PENDING)
+  rank             String                    @default("Bronze")
+  experience       Int                       @default(0)
+  rating           Float                     @default(0) //rakib gazi
+  reviewCount      Int                       @default(0) // rakib gazi
+  businessName     String?
+  businessType     String?
+  tradeLicense     String?
+  taxId            String?                   @unique
+  nidCopy          String?
+  bankName         String?
+  branchName       String?
+  accountHolder    String?
+  accountNumber    String?
+  routingNumber    String?
+  isDeleted        Boolean                   @default(false)
+  deletedAt        DateTime?
+  createdAt        DateTime                  @default(now())
+  updatedAt        DateTime                  @updatedAt
+  products         Product[]
+  store            Store[]
+  activityLogs     VendorActivityLog[]
+  commission       VendorCommission?
+  documents        VendorDocument[]
+  xpHistory        VendorExperienceHistory[]
+  vendorOrders     VendorOrder[]
+  payoutMethods    VendorPayoutMethod[]
+  payouts          VendorPayout[]
+  rewards          VendorRankReward[]
+  snapshots        VendorSnapshot[]
+  staff            VendorStaff[]
+  tickets          VendorTicket[]
+  transactions     VendorTransaction[]
+  counter          VendorUsageCounter?
+  limits           VendorUsageLimit?
+  wallet           VendorWallet?
+  user             User                      @relation(fields: [userId], references: [id])
+  featuredProducts FeaturedProduct[]
+
+  @@map("vendors")
+}
+
+model Store {
+  id              String               @id @default(uuid())
+  vendorId        String
+  vendor          Vendor               @relation(fields: [vendorId], references: [id])
+  shopName        String
+  slug            String               @unique
+  shopLogo        String?
+  shopBanner      String?
+  shopDescription String?
+  phone           String?
+  email           String?
+  address         String?
+  vat             String?
+  taxId           String?
+  status          StoreStatus          @default(PENDING)
+  viewCount       Int                  @default(0)
+  rating          Float                @default(0) //rakib gazi
+  reviewCount     Int                  @default(0) // rakib gazi
+  social          VendorSocial?
+  policies        VendorPolicy[]
+  followers       VendorFollower[]
+  reviews         VendorReview[]
+  shippingRates   VendorShippingRate[]
+  shippingZones   VendorShippingZone[]
+  holidays        VendorHoliday[]
+  promotions      VendorPromotion[]
+  coupons         VendorCoupon[]
+  products        Product[]
+  orders          VendorOrder[]
+
+  isDeleted         Boolean             @default(false)
+  deletedAt         DateTime?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  attributeValues   AttributeValue[]
+  shippingTemplates ShippingTemplate[]
+  activityLogs      VendorActivityLog[]
+  performance       VendorPerformance?
+  staff             VendorStaff[]
+  transactions      VendorTransaction[]
+  featuredProducts  FeaturedProduct[]
+  cartWishlists     CartWishlist[]
+
+  @@map("stores")
+}
+
+model VendorUsageCounter {
+  id                 String   @id @default(uuid())
+  vendorId           String   @unique
+  orderProcessed     Int      @default(0)
+  activeProductCount Int      @default(0)
+  updatedAt          DateTime @updatedAt
+  createdAt          DateTime @default(now())
+  vendor             Vendor   @relation(fields: [vendorId], references: [id])
+
+  @@map("vendor_usage_counters")
+}
+
+model VendorUsageLimit {
+  id               String   @id @default(uuid())
+  vendorId         String   @unique
+  maxProductCount  Int      @default(100)
+  dailyOrderLimit  Int      @default(50)
+  maxCategoryLimit Int      @default(10)
+  maxBrandLimit    Int      @default(5)
+  maxStaffLimit    Int      @default(3)
+  updatedAt        DateTime @updatedAt
+  vendor           Vendor   @relation(fields: [vendorId], references: [id])
+
+  @@map("vendor_usage_limits")
+}
+
+model VendorSnapshot {
+  id               String   @id @default(uuid())
+  vendorId         String
+  availableBalance Float
+  pendingBalance   Float
+  totalIncome      Float
+  totalWithdrawn   Float
+  createdAt        DateTime @default(now())
+  vendor           Vendor   @relation(fields: [vendorId], references: [id])
+
+  @@map("vendor_snapshots")
+}
+
+model VendorExperienceHistory {
+  id        String   @id @default(uuid())
+  vendorId  String
+  amount    Int
+  type      String
+  reason    String?
+  createdAt DateTime @default(now())
+  vendor    Vendor   @relation(fields: [vendorId], references: [id])
+
+  @@map("vendor_experience_histories")
+}
+
+model VendorRankReward {
+  id        String   @id @default(uuid())
+  vendorId  String
+  rankName  String
+  benefit   String
+  createdAt DateTime @default(now())
+  vendor    Vendor   @relation(fields: [vendorId], references: [id])
+
+  @@map("vendor_rank_rewards")
+}
+
+model VendorDocument {
+  id           String         @id @default(uuid())
+  vendorId     String
+  documentType String
+  fileUrl      String
+  status       DocumentStatus @default(PENDING)
+  isDeleted    Boolean        @default(false)
+  deletedAt    DateTime?
+  updatedAt    DateTime       @updatedAt
+  createdAt    DateTime       @default(now())
+  vendor       Vendor         @relation(fields: [vendorId], references: [id])
+
+  @@map("vendor_documents")
+}
+
+model VendorTicket {
+  id          String         @id @default(uuid())
+  vendorId    String
+  subject     String
+  description String
+  category    String
+  priority    TicketPriority @default(NORMAL)
+  status      TicketStatus   @default(OPEN)
+  isDeleted   Boolean        @default(false)
+  deletedAt   DateTime?
+  updatedAt   DateTime       @updatedAt
+  createdAt   DateTime       @default(now())
+  vendor      Vendor         @relation(fields: [vendorId], references: [id])
+
+  @@map("vendor_tickets")
+}
+
+model VendorHoliday {
+  id        String    @id @default(uuid())
+  storeId   String
+  store     Store     @relation(fields: [storeId], references: [id])
+  startDate DateTime
+  endDate   DateTime
+  message   String?
+  isActive  Boolean   @default(false)
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime?
+
+  @@map("vendor_holidays")
+}
+
+model VendorPromotion {
+  id           String    @id @default(uuid())
+  storeId      String
+  store        Store     @relation(fields: [storeId], references: [id])
+  name         String
+  type         String
+  discountRate Float
+  startDate    DateTime
+  endDate      DateTime
+  isActive     Boolean   @default(true)
+  isDeleted    Boolean   @default(false)
+  deletedAt    DateTime?
+
+  @@map("vendor_promotions")
+}
+
+model VendorCoupon {
+  id           String    @id @default(uuid())
+  storeId      String
+  store        Store     @relation(fields: [storeId], references: [id])
+  code         String    @unique
+  discountType String // PERCENTAGE, FIXED
+  amount       Float
+  minSpend     Float?
+  startDate    DateTime
+  endDate      DateTime
+  isActive     Boolean   @default(true)
+  isDeleted    Boolean   @default(false)
+  deletedAt    DateTime?
+
+  @@map("vendor_coupons")
+}
+
+model ShippingTemplate {
+  id        String               @id @default(uuid())
+  name      String
+  type      String
+  storeId   String
+  store     Store                @relation(fields: [storeId], references: [id])
+  zones     VendorShippingZone[]
+  isDeleted Boolean              @default(false)
+  deletedAt DateTime?
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+
+  @@map("shipping_templates")
+}
+
+model VendorShippingZone {
+  id                 String            @id @default(uuid())
+  storeId            String
+  shippingTemplateId String?
+  name               String
+  type               String
+  district           String?
+  rate               Float
+  status             String            @default("ACTIVE")
+  isDeleted          Boolean           @default(false)
+  deletedAt          DateTime?
+  store              Store             @relation(fields: [storeId], references: [id])
+  shippingTemplate   ShippingTemplate? @relation(fields: [shippingTemplateId], references: [id])
+
+  @@map("vendor_shipping_zones")
+}
+
+model VendorSocial {
+  id        String    @id @default(uuid())
+  storeId   String    @unique
+  facebook  String?
+  instagram String?
+  twitter   String?
+  youtube   String?
+  website   String?
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  store     Store     @relation(fields: [storeId], references: [id])
+
+  @@map("vendor_social_media")
+}
+
+model VendorPolicy {
+  id        String    @id @default(uuid())
+  storeId   String
+  store     Store     @relation(fields: [storeId], references: [id])
+  type      String
+  content   String
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("vendor_policies")
+}
+
+model VendorFollower {
+  id        String   @id @default(uuid())
+  storeId   String
+  userId    String
+  createdAt DateTime @default(now())
+  store     Store    @relation(fields: [storeId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([storeId, userId])
+  @@map("vendor_followers")
+}
+
+model VendorReview {
+  id        String    @id @default(uuid())
+  storeId   String
+  userId    String
+  rating    Int
+  comment   String?
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  store     Store     @relation(fields: [storeId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
+
+  @@unique([storeId, userId])
+  @@map("vendor_reviews")
+}
+
+model VendorStaff {
+  id        String    @id @default(uuid())
+  vendorId  String
+  storeId   String
+  userId    String
+  vendor    Vendor    @relation(fields: [vendorId], references: [id])
+  store     Store     @relation(fields: [storeId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
+  role      String
+  status    String    @default("ACTIVE")
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@unique([storeId, userId])
+  @@map("vendor_staff")
+}
+
+model VendorWallet {
+  id             String              @id @default(uuid())
+  vendorId       String              @unique
+  currentBalance Float               @default(0.0)
+  pendingBalance Float               @default(0.0)
+  totalEarned    Float               @default(0.0)
+  totalWithdrawn Float               @default(0.0)
+  withdrawLimit  Float               @default(100.0)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  transactions   VendorTransaction[]
+  vendor         Vendor              @relation(fields: [vendorId], references: [id])
+
+  @@map("vendor_wallets")
+}
+
+model VendorPayout {
+  id           String       @id @default(uuid())
+  vendorId     String
+  amount       Float
+  method       String
+  status       PayoutStatus @default(PENDING)
+  processedAt  DateTime?
+  completedAt  DateTime?
+  failedReason String?
+  isDeleted    Boolean      @default(false)
+  deletedAt    DateTime?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  vendor       Vendor       @relation(fields: [vendorId], references: [id])
+
+  @@map("vendor_payouts")
+}
+
+model VendorTransaction {
+  id          String       @id @default(uuid())
+  vendorId    String
+  storeId     String?
+  walletId    String
+  amount      Float
+  type        String
+  purpose     String
+  status      String       @default("COMPLETED")
+  referenceId String?
+  description String?
+  createdAt   DateTime     @default(now())
+  store       Store?       @relation(fields: [storeId], references: [id])
+  vendor      Vendor       @relation(fields: [vendorId], references: [id])
+  wallet      VendorWallet @relation(fields: [walletId], references: [id])
+
+  @@map("vendor_transactions")
+}
+
+model VendorCommission {
+  id             String   @id @default(uuid())
+  vendorId       String   @unique
+  commissionRate Float
+  isGlobal       Boolean  @default(true)
+  updatedAt      DateTime @updatedAt
+  vendor         Vendor   @relation(fields: [vendorId], references: [id])
+
+  @@map("vendor_commissions")
+}
+
+model VendorShippingRate {
+  id             String    @id @default(uuid())
+  storeId        String
+  store          Store     @relation(fields: [storeId], references: [id])
+  shippingMethod String
+  rate           Float
+  minOrderAmount Float     @default(0.0)
+  isActive       Boolean   @default(true)
+  isDeleted      Boolean   @default(false)
+  deletedAt      DateTime?
+  updatedAt      DateTime  @updatedAt
+
+  @@map("vendor_shipping_rates")
+}
+
+model VendorPayoutMethod {
+  id             String    @id @default(uuid())
+  vendorId       String
+  methodType     String
+  accountDetails Json
+  isDefault      Boolean   @default(false)
+  isDeleted      Boolean   @default(false)
+  deletedAt      DateTime?
+  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime  @default(now())
+  vendor         Vendor    @relation(fields: [vendorId], references: [id])
+
+  @@map("vendor_payout_methods")
+}
+
+model VendorPerformance {
+  id                String   @id @default(uuid())
+  storeId           String   @unique
+  orderSuccessRate  Float    @default(0.0)
+  avgProcessingTime Float    @default(0.0)
+  responseRate      Float    @default(0.0)
+  cancellationRate  Float    @default(0.0)
+  totalSalesCount   Int      @default(0)
+  updatedAt         DateTime @updatedAt
+  store             Store    @relation(fields: [storeId], references: [id])
+
+  @@map("vendor_performance")
+}
+
+model VendorActivityLog {
+  id        String   @id @default(uuid())
+  vendorId  String
+  storeId   String?
+  action    String
+  details   String?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  store     Store?   @relation(fields: [storeId], references: [id])
+  vendor    Vendor   @relation(fields: [vendorId], references: [id])
+
+  @@map("vendor_activity_logs")
+}
